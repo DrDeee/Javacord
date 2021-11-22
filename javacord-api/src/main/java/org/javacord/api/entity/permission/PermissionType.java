@@ -17,6 +17,10 @@ public enum PermissionType {
 
     // chat
     READ_MESSAGES(0x00000400),
+
+    /**
+     * Attention: does not allow sending messages in threads, {@link #SEND_MESSAGES_IN_THREADS} needed for.
+     */
     SEND_MESSAGES(0x00000800),
     SEND_TTS_MESSAGES(0x00001000),
     MANAGE_MESSAGES(0x00002000),
@@ -42,7 +46,13 @@ public enum PermissionType {
     MANAGE_ROLES(0x10000000),
     MANAGE_WEBHOOKS(0x20000000),
     MANAGE_EMOJIS(0x40000000),
-    USE_SLASH_COMMANDS(0x80000000);
+    USE_SLASH_COMMANDS(0x80000000),
+
+    // threads
+    MANAGE_THREADS(1 <<34),
+    CREATE_PUBLIC_THREADS(1 << 35),
+    CREATE_PRIVATE_THREADS(1 << 36),
+    SEND_MESSAGES_IN_THREADS(1 << 38);
 
     /**
      * The value of the permission. An integer where only one bit is set (e.g. <code>0b1000</code>).

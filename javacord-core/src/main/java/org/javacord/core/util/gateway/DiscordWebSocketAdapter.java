@@ -33,11 +33,7 @@ import org.javacord.core.util.auth.NvWebSocketResponseImpl;
 import org.javacord.core.util.auth.NvWebSocketRouteImpl;
 import org.javacord.core.util.handler.ReadyHandler;
 import org.javacord.core.util.handler.ResumedHandler;
-import org.javacord.core.util.handler.channel.ChannelCreateHandler;
-import org.javacord.core.util.handler.channel.ChannelDeleteHandler;
-import org.javacord.core.util.handler.channel.ChannelPinsUpdateHandler;
-import org.javacord.core.util.handler.channel.ChannelUpdateHandler;
-import org.javacord.core.util.handler.channel.WebhooksUpdateHandler;
+import org.javacord.core.util.handler.channel.*;
 import org.javacord.core.util.handler.channel.invite.InviteCreateHandler;
 import org.javacord.core.util.handler.channel.invite.InviteDeleteHandler;
 import org.javacord.core.util.handler.guild.GuildBanAddHandler;
@@ -542,6 +538,7 @@ public class DiscordWebSocketAdapter extends WebSocketAdapter {
             case DISPATCH:
                 lastSeq = packet.get("s").asInt();
                 String type = packet.get("t").asText();
+                System.out.println(type);
                 PacketHandler handler = handlers.get(type);
                 if (handler != null) {
                     handler.handlePacket(packet.get("d"));
@@ -837,6 +834,9 @@ public class DiscordWebSocketAdapter extends WebSocketAdapter {
 
         // command
         addHandler(new InteractionCreateHandler(api));
+
+        // thread
+        addHandler(new ThreadCreateHandler(api));
     }
 
     /**
